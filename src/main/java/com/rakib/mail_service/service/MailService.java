@@ -21,7 +21,7 @@ public class MailService {
             helper.setTo(to);
             System.out.println("receiver " + to);
             helper.setSubject(subject);
-            helper.setText(text);
+            helper.setText("MR. " + to + "\n" + "" + "Your COVID-19 TEST RESULT IS  : " + text);
             System.out.println("RESULT INFO " + text);
             Transport.send(message);
             System.out.println("Send email to : " + to);

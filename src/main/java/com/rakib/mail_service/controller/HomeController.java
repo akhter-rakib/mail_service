@@ -1,9 +1,9 @@
 package com.rakib.mail_service.controller;
 
 import com.rakib.mail_service.model.EmailStatus;
+import com.rakib.mail_service.model.Patient;
 import com.rakib.mail_service.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +18,18 @@ public class HomeController {
 
     @RequestMapping(value = "/sendmail")
     public EmailStatus sendMail() {
-        ArrayList<String> mailAddress = new ArrayList<>();
-        mailAddress.add("rakibccj@gmail.com");
-        mailAddress.add("farzana.cse15@gmail.com");
-        for (String mail : mailAddress) {
-            sms = mailService.sendMimeMail(mail, "COVID - 19 TEST Result", "NEGETIVE");
+        ArrayList<Patient> mailAddress = new ArrayList<>();
+        Patient p1 = new Patient("Rakib", "rakibccj@gmail.com", false);
+        Patient p2 = new Patient("Test", "atuar.cse@gmail.com", false);
+        mailAddress.add(p1);
+        mailAddress.add(p2);
+        for (Patient patient : mailAddress) {
+            sms = mailService.sendMimeMail(patient.getEmail(), "COVID - 19 TEST RESULT", Boolean.toString(patient.getResult()));
+            if (sms.getErrorMessage() == null) {
+
+            } else {
+
+            }
         }
         return sms;
     }
