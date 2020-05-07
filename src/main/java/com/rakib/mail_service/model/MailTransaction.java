@@ -2,7 +2,7 @@ package com.rakib.mail_service.model;
 
 public class MailTransaction {
     private Integer id;
-    private Patient patient;
+    private MailReceiver mailReceiver;
     private Boolean mailStatus;
 
     public Integer getId() {
@@ -13,12 +13,12 @@ public class MailTransaction {
         this.id = id;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public MailReceiver getMailReceiver() {
+        return mailReceiver;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setMailReceiver(MailReceiver mailReceiver) {
+        this.mailReceiver = mailReceiver;
     }
 
     public Boolean getMailStatus() {

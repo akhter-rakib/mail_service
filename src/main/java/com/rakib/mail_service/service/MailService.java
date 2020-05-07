@@ -9,26 +9,47 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.util.List;
 
 @Service
 public class MailService {
-    public EmailStatus sendMimeMail(String to, String subject, String text) {
+    public EmailStatus sendMimeMail(String to, String subject, String text, Boolean isHtml, List<File> attachments) {
         try {
             Session session = MailConstraint.getSessionInstance();
             MimeMessage message = new MimeMessage(session);
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(new InternetAddress(MailConstraint.from));
+            helper.setFrom(MailConstraint.USERNAME);
             helper.setTo(to);
-            System.out.println("receiver " + to);
             helper.setSubject(subject);
-            helper.setText("MR. " + to + "\n" + "" + "Your COVID-19 TEST RESULT IS  : " + text);
-            System.out.println("RESULT INFO " + text);
+            helper.setText(text, isHtml);
+            if (attachments != null && attachments.size() > 0) {
+                for (File file : attachments) {
+                    helper.addAttachment(file.getName(), file);
+                }
+            }
             Transport.send(message);
-            System.out.println("Send email to : " + to);
+            System.out.println("Send email to: " + to);
             return new EmailStatus(to, subject, text).success();
         } catch (Exception e) {
             System.out.println("Problem with sending email to: " + to + " error message: " + e.getMessage());
             return new EmailStatus(to, subject, text).error(e.getMessage());
         }
+    }
+
+    public EmailStatus sendHtmlMail(String to, String subject, String text, List<File> attachments) {
+        return sendMimeMail(to, subject, text, true, attachments);
+    }
+
+    public EmailStatus sendHtmlMail(String to, String subject, String text) {
+        return sendMimeMail(to, subject, text, true, null);
+    }
+
+    public EmailStatus sendNonHtmlMail(String to, String subject, String text) {
+        return sendMimeMail(to, subject, text, false, null);
+    }
+
+    public EmailStatus sendNonHtmlMail(String to, String subject, String text, List<File> attachments) {
+        return sendMimeMail(to, subject, text, false, attachments);
     }
 }

@@ -1,7 +1,7 @@
 package com.rakib.mail_service.service;
 
 import com.rakib.mail_service.config.ActiveStatus;
-import com.rakib.mail_service.model.Patient;
+import com.rakib.mail_service.model.MailReceiver;
 
 import javax.persistence.*;
 
@@ -11,15 +11,15 @@ public class MailTransaction {
     private Integer id;
     @OneToOne
     @JoinColumn(name = "patient_ID")
-    private Patient patient;
+    private MailReceiver mailReceiver;
     private int active;
 
-    public Patient getPatient() {
-        return patient;
+    public MailReceiver getMailReceiver() {
+        return mailReceiver;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setMailReceiver(MailReceiver mailReceiver) {
+        this.mailReceiver = mailReceiver;
     }
 
     public int getActive() {

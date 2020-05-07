@@ -4,18 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Patient {
+public class MailReceiver {
     @Id
     private Integer id;
     private String name;
     private String email;
     private Boolean result;
 
-    public Patient() {
+    public MailReceiver() {
 
     }
 
-    public Patient(String name, String email, Boolean result) {
+    public MailReceiver(String name, String email, Boolean result) {
         this.name = name;
         this.email = email;
         this.result = result;
